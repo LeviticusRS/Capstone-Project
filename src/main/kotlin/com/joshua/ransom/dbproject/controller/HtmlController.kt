@@ -1,4 +1,4 @@
-package com.joshua.ransom.dbproject
+package com.joshua.ransom.dbproject.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -10,7 +10,7 @@ class HtmlController {
 
     @GetMapping("/")
     fun index(model: Model): String {
-        model["title"] = "Home Page"
+        model["asseturl"] = "http://localhost:8080"
         return "index"
     }
 
