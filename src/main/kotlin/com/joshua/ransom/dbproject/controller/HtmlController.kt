@@ -10,7 +10,7 @@ class HtmlController {
 
     @GetMapping("/")
     fun index(model: Model): String {
-        model["asseturl"] = "http://localhost:8080"
+        model["asseturl"] = "http://localhost"
         return "index"
     }
 
