@@ -20,17 +20,17 @@ class ActorController {
     @GetMapping("/save")
     private final fun deploy(): String {
         var timestamp = SimpleDateFormat("dd-MM-yyyy").parse("07-01-1996").time / 1000
-        actorRepository.save(Actor("Joshua Ransom", timestamp, Gender.MALE.value))
+        actorRepository.save(Actor("Joshua Ransom", timestamp, Gender.M, 0))
         timestamp = SimpleDateFormat("dd-MM-yyyy").parse("04-05-1990").time / 1000
-        actorRepository.save(Actor("Zion Williamson", timestamp, Gender.FEMALE.value))
+        actorRepository.save(Actor("Zion Williamson", timestamp, Gender.F, 1))
         return "Done - Actors"
     }
 
     @RequestMapping("/findAllActors")
-    fun findAll() = actorRepository.findAll()
+    fun findAll(): Iterable<Actor> = actorRepository.findAll()
 
     @RequestMapping("/deleteActorById/{id}")
-    fun deleteActorById(@PathVariable actorId: Long) = actorRepository.deleteById(actorId)
+    fun deleteActorById(@PathVariable id: Long) = actorRepository.deleteById(id)
 
     @RequestMapping("/findByActorName/{actorName}")
     fun findByActorName(@PathVariable actorName: String) = actorRepository.findByActorName(actorName)

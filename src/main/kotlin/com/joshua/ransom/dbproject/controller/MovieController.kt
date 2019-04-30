@@ -26,10 +26,10 @@ class MovieController {
     }
 
     @RequestMapping("/findAllMovies")
-    fun findAll() = movieRepository.findAll()
+    fun findAll(): Iterable<Movie> = movieRepository.findAll()
 
     @RequestMapping("/deleteMovieById/{id}")
-    fun deleteMovieById(@PathVariable movieId: Long) = movieRepository.deleteById(movieId)
+    fun deleteMovieById(@PathVariable id: Long) = movieRepository.deleteById(id)
 
     @RequestMapping("/findByMovieId/{id}")
     fun findByMovieId(@PathVariable movieId: Long) = movieRepository.findById(movieId)

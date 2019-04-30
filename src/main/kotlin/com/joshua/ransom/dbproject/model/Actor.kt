@@ -11,17 +11,21 @@ data class Actor(
         @Column(name = "ActorName", nullable = false, length = 40)
         val actorName: String = "",
 
-        @Column(name = "ActorDOB", nullable = false)
+        @Column(name = "ActorDOB", nullable = false, columnDefinition = "DATE")
         val actorDateOfBirth: Long = 0,
 
-        @Column(name = "ActorGender", nullable = false)
-        val actorGender: Char = Gender.MALE.value,
+        @Column(name = "ActorGender", nullable = false, columnDefinition = "CHAR")
+        val actorGender: Gender = Gender.M,
 
-        @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "ActorId")
-        val actorId: Long = -1)
+        @Id
+        @Column(name = "ActorId", length = 8, columnDefinition = "CHAR")
+        val actorId: Long = 0) {
 
-enum class Gender(val value: Char) {
-    MALE('M'),
-    FEMALE('F'),
+    @OneToMany(mappedBy = "actorId")
+    private val actsIn: Set<ActsIn> = emptySet()
+}
+
+enum class Gender {
+    M,
+    F,
 }

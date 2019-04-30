@@ -2,32 +2,113 @@
 
 <div class="account-pages"></div>
 <div class="clearfix"></div>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+</nav>
 <div class="wrapper-page">
+    <div class="panel-heading">
+        <h3 class="text-center">Database Management <strong class="text-custom">Project</strong></h3>
+    </div>
     <div class="card-box">
         <div class="panel-heading">
-            <h3 class="text-center"> Database Management <strong class="text-custom">Project</strong></h3>
+            <h3 class="text-center">Movies</h3>
         </div>
         <div class="panel-body">
-            <table id="example" class="display"></table>
+            <table id="movie" class="display" style="width:100%"></table>
+        </div>
+    </div>
+    <div class="card-box">
+        <div class="panel-heading">
+            <h3 class="text-center">Actors</h3>
+        </div>
+        <div class="panel-body">
+            <table id="actor" class="display" style="width:100%"></table>
         </div>
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable( {
+    var movieTable = $('#movie');
+    var actorTable = $('#actor');
+    $(document).ready(function () {
+        movieTable.DataTable({
             ajax: {
-                url: '/findAll/',
+                url: '/api/movie/findAllMovies/',
                 dataSrc: ''
             },
             columns: [
-                { data: 'movieName' },
-                { data: 'movieDescription' },
-                { data: 'movieRating' },
-                { data: 'movieReleaseDate' },
-                { data: 'movieLength' },
-                { data: 'movieId' }
+                {title: "Id", data: 'movieId'},
+                {title: "Name", data: 'movieName'},
+                {title: "Description", data: 'movieDescription'},
+                {title: "Rating", data: 'movieRating'},
+                {title: "Release Date", data: 'movieReleaseDate',
+                    render: function ( data, type, row ) {
+                        var date = new Date(data * 1000);
+                        return date.toDateString();
+                    }
+                },
+                {title: "Length (mins)", data: 'movieLength'},
+                {data: null, "defaultContent": "<button>Delete</button>"}
             ]
         });
+
+        actorTable.DataTable({
+            ajax: {
+                url: '/api/actor/findAllActors/',
+                dataSrc: ''
+            },
+            columns: [
+                {title: "Id", data: 'actorId'},
+                {title: "Name", data: 'actorName'},
+                {title: "Date of Birth", data: 'actorDateOfBirth',
+                    render: function ( data, type, row ) {
+                        var date = new Date(data * 1000);
+                        return date.toDateString();
+                    }
+                },
+                {title: "Gender", data: 'actorGender'},
+                {data: null, "defaultContent": "<button>Delete</button>"}
+            ]
+        });
+        $.ajax('/api/movie/save/', {
+            success: function () {
+                movieTable.DataTable().ajax.reload();
+            }
+        });
+        $.ajax('/api/actor/save/', {
+            success: function () {
+                actorTable.DataTable().ajax.reload();
+            }
+        });
+    });
+
+    movieTable.on('click', 'button', function () {
+        var dtRow = $(this).parents('tr');
+        var data = movieTable.DataTable().row(dtRow.rowIndex).data();
+        var answer = confirm('Do you want to delete this row from the database?');
+        if (answer) {
+            var id = data["movieId"];
+            $.ajax('/api/movie/deleteMovieById/' + id, {
+                success: function () {
+                    alert("Successfully deleted");
+                    movieTable.DataTable().ajax.reload();
+                }
+            });
+        }
+    });
+
+    actorTable.on('click', 'button', function () {
+        var dtRow = $(this).parents('tr');
+        var data = actorTable.DataTable().row(dtRow.rowIndex).data();
+        var answer = confirm('Do you want to delete this row from the database?');
+        if (answer) {
+            var id = data["actorId"];
+            $.ajax('/api/actor/deleteActorById/' + id, {
+                success: function () {
+                    alert("Successfully deleted");
+                    actorTable.DataTable().ajax.reload();
+                }
+            });
+        }
     });
 </script>
 {{> footer}}
