@@ -19,7 +19,7 @@ data class PlayingInScreen(
         val startTime: Long = 0,
 
         @ManyToOne
-        @JoinColumn(name = "MovieId", columnDefinition = "CHAR")
+        @JoinColumn(name = "MovieId", columnDefinition = "integer")
         val movieId: Movie): Serializable {
 
     @OneToMany(mappedBy = "test")

@@ -9,12 +9,12 @@ import javax.validation.constraints.Min
 data class StaffSalary(
         @Id
         @ManyToOne
-        @JoinColumn(name = "StaffId", columnDefinition = "CHAR")
+        @JoinColumn(name = "StaffId", columnDefinition = "integer")
         val staffId: Staff,
 
         @Id
         @ManyToOne
-        @JoinColumn(name = "PositionId", columnDefinition = "CHAR")
+        @JoinColumn(name = "PositionId", columnDefinition = "integer")
         val positionId: Position,
 
         @Min(1)

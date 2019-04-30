@@ -6,8 +6,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "Ticket")
 data class Ticket(
-        @Id
-        @Column(name = "TicketId", columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "TicketId", columnDefinition = "integer")
         val ticketId: Long = 0,
 
         @OneToOne

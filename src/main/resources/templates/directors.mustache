@@ -1,0 +1,46 @@
+{{> header}}
+
+<div class="account-pages"></div>
+<div class="clearfix"></div>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1">View Tables</a>
+</nav>
+<div class="wrapper-page">
+    <div class="panel-heading">
+        <h3 class="text-center">Database Management <strong class="text-custom">Project</strong></h3>
+    </div>
+    <div class="card-box">
+        <div class="panel-heading">
+            <h3 class="text-center">Directors</h3>
+        </div>
+        <div class="panel-body">
+            <form id="directors" action="/api/director/new" method="POST" class='form-inline'>
+                <div class="input-group">
+                    Director name:<br>
+                    <input id="directorName" type="text" class="form-control">
+                    Director Gender:<br>
+                    <input id="directorGender" type="text" class="form-control">
+                    Director DOB:<br>
+                    <input id="directorDateOfBirth"  type="date" class="form-control">
+                    <br>
+                    <button id="submitDirector" type="submit" class="btn btn-secondary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var moviesForm = $('#directors');
+        moviesForm.submit(function(event){
+            var directorName = $('#directorName').val();
+            var directorGender = $('#directorGender').val();
+            var directorDateOfBirth = $('#directorDateOfBirth').val();
+            $.post('/api/director/new', {directorName: directorName, directorGender: directorGender, directorDateOfBirth: directorDateOfBirth}, function(){
+                alert("Successfully created.");
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+{{> footer}}

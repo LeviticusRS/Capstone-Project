@@ -1,5 +1,6 @@
 package com.joshua.ransom.dbproject.model
 
+import java.sql.Date
 import javax.persistence.*
 import javax.validation.constraints.Max
 
@@ -31,15 +32,14 @@ data class Staff(
         @Column(name = "SSN", nullable = false, length = 9)
         val socialSecurityNumber: String = "",
 
-        @Enumerated(EnumType.STRING)
-        @Column(name = "Gender", length = 8, columnDefinition = "CHAR")
-        val staffGender: Gender = Gender.M,
+        @Column(name = "Gender", length = 1, columnDefinition = "character(1)")
+        val staffGender: Char = 'M',
 
         @Column(name = "DOB", nullable = false, columnDefinition = "DATE")
-        val staffDateOfBirth: Long = 0,
+        val staffDateOfBirth: Date? = null,
 
-        @Id
-        @Column(name = "StaffId", length = 8, columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "StaffId", length = 8, columnDefinition = "integer")
         val staffId: Int = 0) {
 
     @OneToMany(mappedBy = "staffId")

@@ -1,13 +1,10 @@
 package com.joshua.ransom.dbproject.controller
 
 import com.joshua.ransom.dbproject.model.Actor
-import com.joshua.ransom.dbproject.model.Gender
 import com.joshua.ransom.dbproject.repository.ActorRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.sql.Date
 import java.text.SimpleDateFormat
 
 @RestController
@@ -19,10 +16,10 @@ class ActorController {
 
     @GetMapping("/save")
     private final fun deploy(): String {
-        var timestamp = SimpleDateFormat("dd-MM-yyyy").parse("07-01-1996").time / 1000
-        actorRepository.save(Actor("Joshua Ransom", timestamp, Gender.M, 0))
-        timestamp = SimpleDateFormat("dd-MM-yyyy").parse("04-05-1990").time / 1000
-        actorRepository.save(Actor("Zion Williamson", timestamp, Gender.F, 1))
+        var timestamp = SimpleDateFormat("dd-MM-yyyy").parse("07-01-1996").time
+        actorRepository.save(Actor("Joshua Ransom", Date(timestamp), 'M'))
+        timestamp = SimpleDateFormat("dd-MM-yyyy").parse("04-05-1990").time
+        actorRepository.save(Actor("Zion Williamson", Date(timestamp), 'F'))
         return "Done - Actors"
     }
 
@@ -35,4 +32,22 @@ class ActorController {
     @RequestMapping("/findByActorName/{actorName}")
     fun findByActorName(@PathVariable actorName: String) = actorRepository.findByActorName(actorName)
 
+    @RequestMapping("/new", method = [RequestMethod.POST])
+    fun createActor(@RequestParam(value = "actorName") actorName: String,
+                    @RequestParam(value = "actorDateOfBirth") actorDateOfBirth: String,
+                    @RequestParam(value = "actorGender") actorGender: String) : String {
+        val timestamp = SimpleDateFormat("dd-MM-yyyy").parse(actorDateOfBirth).time
+        val newActor = Actor(
+                actorName = actorName,
+                actorDateOfBirth = Date(timestamp),
+                actorGender = when(actorGender) {
+                    "M" -> { 'M'}
+                    "F" -> { 'F'}
+                    else -> 'M'
+                }
+        )
+        actorRepository.save(newActor)
+
+        return "/"
+    }
 }

@@ -8,17 +8,17 @@ import javax.persistence.*
 data class StaffPosition(
         @Id
         @ManyToOne
-        @JoinColumn(name = "StaffId", columnDefinition = "CHAR")
+        @JoinColumn(name = "StaffId", columnDefinition = "integer")
         val staffId: Staff,
 
-        @Id
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
         @ManyToOne
-        @JoinColumn(name = "PositionId", columnDefinition = "CHAR")
+        @JoinColumn(name = "PositionId", columnDefinition = "integer")
         val positionId: Position,
 
         @Id
         @ManyToOne
-        @JoinColumn(name = "TheaterId", columnDefinition = "CHAR")
+        @JoinColumn(name = "TheaterId", columnDefinition = "integer")
         val theaterId: Theater,
 
         @Id

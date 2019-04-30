@@ -1,0 +1,52 @@
+{{> header}}
+
+<div class="account-pages"></div>
+<div class="clearfix"></div>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1">View Tables</a>
+</nav>
+<div class="wrapper-page">
+    <div class="panel-heading">
+        <h3 class="text-center">Database Management <strong class="text-custom">Project</strong></h3>
+    </div>
+    <div class="card-box">
+        <div class="panel-heading">
+            <h3 class="text-center">Movies</h3>
+        </div>
+        <div class="panel-body">
+            <form id="movies" action="/api/movie/new" method="POST" class='form-inline'>
+                <div class="input-group">
+                    Movie name:<br>
+                    <input id="movieName" type="text" class="form-control">
+                    Movie Description:<br>
+                    <input id="movieDescription" type="text" class="form-control">
+                    Movie Rating:<br>
+                    <input id="movieRating" type="text" class="form-control">
+                    Movie Length:<br>
+                    <input id="movieLength" type="text" class="form-control">
+                    Movie Release Date:<br>
+                    <input id="movieReleaseDate"  type="date" class="form-control">
+                    <br>
+                    <button id="submitMovie" type="submit" class="btn btn-secondary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var moviesForm = $('#movies');
+        moviesForm.submit(function(event){
+            var movieName = $('#movieName').val();
+            var movieDescription = $('#movieDescription').val();
+            var movieRating = $('#movieRating').val();
+            var movieReleaseDate = $('#movieReleaseDate').val();
+            var movieLength = $('#movieLength').val();
+            $.post('/api/movie/new', {movieName: movieName, movieDescription: movieDescription, movieRating: movieRating, movieLength: movieLength, movieReleaseDate: movieReleaseDate}, function(){
+                alert("Successfully created.");
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+{{> footer}}

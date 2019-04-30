@@ -1,5 +1,6 @@
 package com.joshua.ransom.dbproject.model
 
+import java.sql.Date
 import javax.persistence.*
 import javax.validation.constraints.Max
 
@@ -17,13 +18,13 @@ data class Movie(
         val movieRating: String = "",
 
         @Column(name = "MovieReleaseDate", nullable = false, columnDefinition = "DATE")
-        val movieReleaseDate: Long = 0,
+        val movieReleaseDate: Date? = null,
 
         @Column(name = "MovieLength", nullable = false, columnDefinition = "NUMERIC")
         val movieLength: Int = 0,
 
-        @Id
-        @Column(name = "MovieId", length = 8, columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "MovieId", length = 8, columnDefinition = "integer")
         val movieId: Long = 0) {
 
     @OneToMany(mappedBy = "movieId")

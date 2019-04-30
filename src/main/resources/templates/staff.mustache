@@ -1,0 +1,75 @@
+{{> header}}
+
+<div class="account-pages"></div>
+<div class="clearfix"></div>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1">View Tables</a>
+</nav>
+<div class="wrapper-page">
+    <div class="panel-heading">
+        <h3 class="text-center">Database Management <strong class="text-custom">Project</strong></h3>
+    </div>
+    <div class="card-box">
+        <div class="panel-heading">
+            <h3 class="text-center">Staff</h3>
+        </div>
+        <div class="panel-body">
+            <form id="actors" action="/api/staff/new" method="POST" class='form-inline'>
+                <div class="input-group">
+                    Staff Name:<br>
+                    <input id="staffName" type="text" class="form-control">
+                    Staff Street Address:<br>
+                    <input id="staffStreetAddress" type="text" class="form-control">
+                    Staff City:<br>
+                    <input id="staffCity" type="text" class="form-control">
+                    Staff State:<br>
+                    <input id="staffState" type="text" class="form-control">
+                    Staff ZipCode:<br>
+                    <input id="staffZipcode" type="text" class="form-control">
+                    Staff Phone Number:<br>
+                    <input id="staffPhoneNumber" type="text" class="form-control">
+                    Staff Email:<br>
+                    <input id="staffEmail" type="text" class="form-control">
+                    Staff SSN:<br>
+                    <input id="socialSecurityNumber" type="text" class="form-control">
+                    Staff DOB:<br>
+                    <input id="staffDateOfBirth" type="date" class="form-control">
+                    Staff Gender:<br>
+                    <input id="staffGender" type="text" class="form-control">
+                    <br>
+                    <button id="submitStaff" type='submit' class="btn btn-secondary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var actorsForm = $('#actors');
+        actorsForm.submit(function(event){
+            var staffName = $('#staffName').val();
+            var staffStreetAddress = $('#staffStreetAddress').val();
+            var staffCity = $('#staffCity').val();
+            var staffState = $('#staffState').val();
+            var staffZipcode = $('#staffZipcode').val();
+            var staffPhoneNumber = $('#staffPhoneNumber').val();
+            var staffEmail = $('#staffEmail').val();
+            var socialSecurityNumber = $('#socialSecurityNumber').val();
+            var staffDateOfBirth = $('#staffDateOfBirth').val();
+            var staffGender = $('#staffGender').val();
+            $.post('/api/staff/new', {staffName: staffName,
+                staffStreetAddress: staffStreetAddress,
+                staffCity: staffCity,
+                staffState: staffState,
+                staffZipcode: staffZipcode,
+                staffPhoneNumber: staffPhoneNumber,
+                staffEmail: staffEmail,
+                socialSecurityNumber: socialSecurityNumber,
+                staffDateOfBirth: staffDateOfBirth, staffGender: staffGender}, function(){
+                alert("Successfully created.");
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+{{> footer}}

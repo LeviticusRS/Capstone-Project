@@ -8,10 +8,10 @@ import javax.persistence.*
 data class Directs(
         @Id
         @ManyToOne
-        @JoinColumn(name = "DirectorId", columnDefinition = "CHAR")
+        @JoinColumn(name = "DirectorId", columnDefinition = "integer")
         val directorId: Director,
 
         @Id
         @ManyToOne
-        @JoinColumn(name = "MovieId", columnDefinition = "CHAR")
+        @JoinColumn(name = "MovieId", columnDefinition = "integer")
         val movieId: Movie) : Serializable

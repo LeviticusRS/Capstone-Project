@@ -14,4 +14,29 @@ class HtmlController {
         return "index"
     }
 
+    @GetMapping("/movies")
+    fun movies(model: Model): String {
+        return "movies"
+    }
+
+    @GetMapping("/actors")
+    fun actors(model: Model): String {
+        return "actors"
+    }
+
+    @GetMapping("/directors")
+    fun directors(model: Model): String {
+        return "directors"
+    }
+
+    @GetMapping("/staff")
+    fun staff(model: Model): String {
+        return "staff"
+    }
+
+    @GetMapping("/position")
+    fun position(model: Model): String {
+        return "position"
+    }
+
 }

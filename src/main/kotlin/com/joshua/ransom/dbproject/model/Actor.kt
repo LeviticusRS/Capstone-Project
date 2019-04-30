@@ -1,5 +1,6 @@
 package com.joshua.ransom.dbproject.model
 
+import java.sql.Date
 import javax.persistence.*
 import javax.validation.constraints.Max
 
@@ -12,20 +13,15 @@ data class Actor(
         val actorName: String = "",
 
         @Column(name = "ActorDOB", nullable = false, columnDefinition = "DATE")
-        val actorDateOfBirth: Long = 0,
+        val actorDateOfBirth: Date? = null,
 
-        @Column(name = "ActorGender", nullable = false, columnDefinition = "CHAR")
-        val actorGender: Gender = Gender.M,
+        @Column(name = "ActorGender", length = 1, nullable = false, columnDefinition = "character(1)")
+        val actorGender: Char = 'M',
 
-        @Id
-        @Column(name = "ActorId", length = 8, columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "ActorId", length = 8, columnDefinition = "integer")
         val actorId: Long = 0) {
 
     @OneToMany(mappedBy = "actorId")
     private val actsIn: Set<ActsIn> = emptySet()
-}
-
-enum class Gender {
-    M,
-    F,
 }

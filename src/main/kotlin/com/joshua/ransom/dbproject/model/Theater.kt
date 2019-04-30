@@ -27,8 +27,8 @@ data class Theater(
         @Column(name = "ZipCode", nullable = false, length = 5)
         val zipcode: String = "",
 
-        @Id
-        @Column(name = "TheaterId", columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "TheaterId", columnDefinition = "integer")
         val movieId: Long = 0) {
 
     @OneToMany(mappedBy = "theaterId")

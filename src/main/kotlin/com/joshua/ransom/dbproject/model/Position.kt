@@ -10,8 +10,8 @@ data class Position(
         @Column(name = "PositionName", nullable = false, length = 20)
         val positionName: String = "",
 
-        @Id
-        @Column(name = "PositionId", length = 8, columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "PositionId", length = 8, columnDefinition = "integer")
         val positionId: Long = 0) {
 
     @OneToMany(mappedBy = "positionId")

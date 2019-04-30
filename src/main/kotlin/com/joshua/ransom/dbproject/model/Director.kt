@@ -1,5 +1,6 @@
 package com.joshua.ransom.dbproject.model
 
+import java.sql.Date
 import javax.persistence.*
 import javax.validation.constraints.Max
 
@@ -11,14 +12,14 @@ data class Director(
         @Column(name = "DirectorName", nullable = false, length = 40)
         val directorName: String = "",
 
-        @Column(name = "DirectorDOB")
-        val directorDateOfBirth: Long = 0,
+        @Column(name = "DirectorDOB", columnDefinition = "DATE")
+        val directorDateOfBirth: Date? = null,
 
-        @Column(name = "DirectorGender", nullable = false, columnDefinition = "CHAR")
-        val directorGender: Gender = Gender.M,
+        @Column(name = "DirectorGender", length = 1, nullable = false, columnDefinition = "character(1)")
+        val directorGender: Char = 'M',
 
-        @Id
-        @Column(name = "DirectorId", length = 8, columnDefinition = "CHAR")
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "DirectorId", length = 8, columnDefinition = "integer")
         val directorId: Long = 0) {
 
     @OneToMany(mappedBy = "directorId")

@@ -19,10 +19,11 @@ data class Screen(
 
 @Embeddable
 data class ScreenId(
-        @Column(name = "ScreenId", length = 8, columnDefinition = "CHAR")
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "ScreenId", length = 8, columnDefinition = "integer")
         val screenId: Long = -1,
 
         @ManyToOne
-        @JoinColumn(name = "TheaterId", columnDefinition = "CHAR")
+        @JoinColumn(name = "TheaterId", columnDefinition = "integer")
         val theaterId: Theater
 ) : Serializable
